@@ -26,9 +26,11 @@ build_and_push() {
 
   local -r gcr_image_name="${location}/${GOOGLE_PROJECT_ID}/${INPUT_IMAGE}"
   if [[ -n "${INPUT_DOCKER_BUILD_SCRIPT:-""}" ]]; then
+    echo "Running docker build script: ${INPUT_DOCKER_BUILD_SCRIPT}"
     eval "${INPUT_DOCKER_BUILD_SCRIPT}"
   else
     local -r dockerfile="${INPUT_DOCKERFILE:-"Dockerfile"}"
+    echo "Building docker image on file '${dockerfile}'"
     docker build -t "${gcr_image_name}" "$(dirname ${dockerfile})"
   fi
 
