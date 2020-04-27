@@ -34,7 +34,6 @@ build_and_push() {
 
   echo "${GCLOUD_SERVICE_ACCOUNT_KEY}" \
     | docker login -u _json_key --password-stdin "https://${location}"
-  gcloud auth configure-docker
   docker push "${gcr_image_name}"
 }
 
