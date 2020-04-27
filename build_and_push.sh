@@ -31,6 +31,9 @@ build_and_push() {
     local -r dockerfile="${INPUT_DOCKERFILE:-"Dockerfile"}"
     docker build -t "${gcr_image_name}" "$(dirname ${dockerfile})"
   fi
+
+  echo "${GCLOUD_SERVICE_ACCOUNT_KEY}" \
+    | docker login -u _json_key --password-stdin "https://${location}"
   docker push "${gcr_image_name}"
 }
 
