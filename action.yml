@@ -1,0 +1,22 @@
+name: "Build and Push to GCR"
+description: "Builds a Docker image and pushes it to GCR"
+author: "Joshua Thompson"
+branding:
+  icon: "upload-cloud"
+  color: "purple"
+inputs:
+  image:
+    description: "Docker image and tag, like 'your_image:latest'"
+    required: true
+  gcr_location:
+    description: "Regional location of the repository, defaults to 'gcr.io'"
+    required: false
+  dockerfile:
+    description: "Location of the Dockerfile to build, defaults to project root"
+    required: false
+  docker_build_script:
+    description: "Location of an optional build script to generate the Docker image"
+    required: false
+runs:
+  using: "docker"
+  image: "Dockerfile"
