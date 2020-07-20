@@ -17,14 +17,19 @@ build_and_push() {
     return 1
   fi
 
-  if [[ -z "${GOOGLE_PROJECT_ID:-""}" ]]; then
+  local project_id
+  if [[ -n "${GOOGLE_PROJECT_ID:-""}" ]]; then
+    project_id="${GOOGLE_PROJECT_ID}"
+  elif ! project_id=$(echo "${GCLOUD_SERVICE_ACCOUNT_KEY}" \
+      | jq -r ".project_id"); then
     echo "GOOGLE_PROJECT_ID env var required (GitHub secret)"
     return 1
   fi
+  readonly project_id
 
   local -r location="${INPUT_GCR_LOCATION:-"gcr.io"}"
 
-  local -r gcr_image_name="${location}/${GOOGLE_PROJECT_ID}/${INPUT_IMAGE}"
+  local -r gcr_image_name="${location}/${project_id}/${INPUT_IMAGE}"
   if [[ -n "${INPUT_DOCKER_BUILD_SCRIPT:-""}" ]]; then
     echo "Running docker build script: ${INPUT_DOCKER_BUILD_SCRIPT}"
     eval "${INPUT_DOCKER_BUILD_SCRIPT}"
