@@ -27,7 +27,7 @@ Required Environment Variables:
 
 Simple example:
 ```ylm
-uses: thompsonja/docker-push-gcr
+uses: thompsonja/docker-push-gcr@v0.2.0
 with:
   image: "foo_image:latest"
   env:
@@ -37,7 +37,7 @@ with:
 
 Example using a specific Dockerfile, save images to EU servers only:
 ```ylm
-uses: thompsonja/docker-push-gcr
+uses: thompsonja/docker-push-gcr@v0.2.0
 with:
   gcr_location: "eu.gcr.io"
   image: "foo_image:latest"
@@ -49,7 +49,7 @@ with:
 
 Example using a build script, save images to US servers only:
 ```ylm
-uses: thompsonja/docker-push-gcr
+uses: thompsonja/docker-push-gcr@v0.2.0
 with:
   gcr_location: "us.gcr.io"
   image: "foo_image:latest"
