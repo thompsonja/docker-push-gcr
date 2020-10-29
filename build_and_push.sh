@@ -36,7 +36,10 @@ build_and_push() {
   else
     local -r dockerfile="${INPUT_DOCKERFILE:-"Dockerfile"}"
     echo "Building docker image on file '${dockerfile}'"
-    docker build -t "${gcr_image_name}" "$(dirname ${dockerfile})"
+    docker build \
+      -t "${gcr_image_name}" \
+      -f "${dockerfile}" \
+      "$(dirname ${dockerfile})"
   fi
 
   echo "${GCLOUD_SERVICE_ACCOUNT_KEY}" \
